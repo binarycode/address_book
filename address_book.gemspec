@@ -1,5 +1,6 @@
 # encoding: utf-8
-require File.expand_path("../lib/address_book/version", __FILE__)
+$:.push File.expand_path("../lib", __FILE__)
+require "address_book/version"
 
 Gem::Specification.new do |s|
   s.name        = "address_book"
@@ -11,12 +12,10 @@ Gem::Specification.new do |s|
   s.summary     = "Address book export"
   s.description = "Exports address books from various e-mail services (Gmail, Mail.ru, Yandex, Rambler)"
 
-  s.required_rubygems_version = ">= 1.3.6"
-
-  s.add_runtime_dependency "gdata"
-  s.add_runtime_dependency "gdata19"
-  s.add_runtime_dependency "nokogiri"
-  s.add_runtime_dependency "patron"
+  s.add_dependency "gdata"
+  s.add_dependency "gdata19"
+  s.add_dependency "nokogiri"
+  s.add_dependency "patron"
 
   s.files        = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
