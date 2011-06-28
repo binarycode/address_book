@@ -1,3 +1,6 @@
+require "patron"
+require "nokogiri"
+
 class AddressBook
   @@domains = {}
 

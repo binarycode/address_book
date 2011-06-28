@@ -1,3 +1,5 @@
+require "gdata"
+
 class AddressBook
   class Gmail < Base
     ADDRESS_BOOK_URL = "http://www.google.com/m8/feeds/contacts/default/full/?max-results=1000"

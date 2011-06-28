@@ -13,12 +13,10 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = ">= 1.3.6"
 
-  s.add_development_dependency "bundler", ">= 1.0.0"
-
-  s.add_dependency "gdata", ">= 1.1.2"
-  s.add_dependency "gdata19", ">= 0.1.9.2"
-  s.add_dependency "nokogiri", ">= 1.4.6"
-  s.add_dependency "patron", ">= 0.4.12"
+  s.add_runtime_dependency "gdata"
+  s.add_runtime_dependency "gdata19"
+  s.add_runtime_dependency "nokogiri"
+  s.add_runtime_dependency "patron"
 
   s.files        = `git ls-files`.split("\n")
   s.require_paths = ["lib"]
