@@ -1,0 +1,50 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: http://passport.yandex.ru:80/passport?mode=auth
+    body: login=test%40yandex.ru&passwd=
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    body: b-login-error
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: http://passport.yandex.ru:80/passport?mode=auth
+    body: login=test%40yandex.ru&passwd=123123
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    body: okay
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: https://mail.yandex.ru:443/neo2/handlers/handlers.jsx
+    body: _handlers=abook-contacts&all=yes
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    body: |-
+      <handlers>
+        <handler name="abook-contacts" gid="0" key="_handler=abook-contacts&amp;amp;all=yes">
+          <abook-contacts>                                                        
+            <contacts>
+              <pager count="2"/>
+              <contact mcid="2">
+                <name first="John" last="Doe"/>
+                <email cid="0" rec_id="4">test1@yandex.ru</email>
+              </contact>
+              <contact mcid="1">
+                <name first="Judy" last="Doe"/>
+                <email cid="1" rec_id="2">test2@yandex.ru</email>
+              </contact>
+            </contacts>
+          </abook-contacts>
+        </handler>
+        <login>test</login>
+        <actual-version>3.3.11</actual-version>
+      </handlers>

@@ -2,26 +2,29 @@ require "patron"
 require "nokogiri"
 
 class AddressBook
-  @@domains = {}
+  class << self
+    attr_accessor :domains
 
-  def self.register_service(domains, klass)
-    Array(domains).each do |domain|
-      @@domains[domain] = klass
+    def register_service(list, klass)
+      self.domains ||= {}
+      Array(list).each do |domain|
+        self.domains[domain] = klass
+      end
     end
-  end
 
-  def self.export(login, password)
-    domain = extract_domain login
-    klass = @@domains[domain]
-    if klass
-      klass.new(login, password).contacts
-    else
-      raise ServiceNotFound, "No service registered for #{domain.inspect} domain"
+    def extract_domain(login)
+      login.split("@").last
     end
-  end
 
-  def self.extract_domain(login)
-    login.split("@").last
+    def export(login, password)
+      domain = extract_domain login
+      service = domains[domain]
+      if service 
+        service.new(login, password).contacts
+      else
+        raise ServiceNotFound, "No service registered for #{domain.inspect} domain"
+      end
+    end
   end
 
   class Base
@@ -30,5 +33,11 @@ class AddressBook
     def session
       @session ||= Patron::Session.new.handle_cookies
     end
+  end
+
+  class ServiceNotFound < StandardError
+  end
+
+  class AuthenticationError < StandardError
   end
 end

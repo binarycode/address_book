@@ -1,0 +1,24 @@
+yandex:
+  :login: test@yandex.ru
+  :password: 123123
+  :contacts:
+    test1@yandex.ru: John Doe
+    test2@yandex.ru: Judy Doe
+mailru:
+  :login: test@mail.ru
+  :password: 123123
+  :contacts:
+    test1@mail.ru: John Doe
+    test2@mail.ru: Judy Doe
+rambler:
+  :login: test@rambler.ru
+  :password: 123123
+  :contacts:
+    test1@rambler.ru: John Doe
+    test2@rambler.ru: Judy Doe
+gmail:
+  :login: test@gmail.com
+  :password: 123123
+  :contacts:
+    test1@gmail.com: John Doe
+    test2@gmail.com: Judy Doe

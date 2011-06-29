@@ -1,0 +1,61 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: https://www.google.com:443/accounts/ClientLogin
+    body: accountType=HOSTED_OR_GOOGLE&Email=test%40gmail.com&service=cp&source=GoogleDataRubyUtil-AnonymousApp
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 403
+      message: Forbidden
+    headers: 
+    body: |
+      Error=BadAuthentication
+
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: https://www.google.com:443/accounts/ClientLogin
+    body: accountType=HOSTED_OR_GOOGLE&Email=test%40gmail.com&Passwd=123123&service=cp&source=GoogleDataRubyUtil-AnonymousApp
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    body: |
+      SID=DQAAAKgAAABwV6Qd_vrMOi-86IdAnEhSFVj4bHXwd6HIlrWn15mSSXzTm_hDfu5Bfc3rFQHZ1TZ_tCotFayq7T2_tjZ-6Y-KGdjrI8fWgxSDLwd4lxnoJNNa1o-1Qexa-Dkugw2NGQzs2dksLN3MtIquM6qKKGi5eU-XtoMhZuCO0ONOHcbXee2BzddIfyFLU3KLequHnalvEimYwzcXan_e_rpq-LQSMNqGq7pjcFpe8PrUClZPEQ
+      LSID=DQAAAKsAAADkbdCaqEb7sGI_UfyrmbHqt31rPnF1B_2WGFszNhjVT4bnxes3vVPZlxFnMgLdq3NXDoTt7uMCjpC5XwCflHUf36MMy4EoLmlomOU0JQwkOOZYiPrO9eIXDxPpravJlyp4L7DwQlICsCNDnq7NAB9qmPwy_DbJYOeoS2bhHOPkJcV6odXe6M1G3k24ingUZz3_ok6sq2HhFOmXVdP1F50cAPbB-J9j2XfrHp1pWdKHiA
+      Auth=DQAAAKsAAADkbdCaqEb7sGI_UfyrmbHqt31rPnF1B_2WGFszNhjVT4bnxes3vVPZlxFnMgLdq3NGEhR1RON3lVO5-hHhHVxMiw-X1-s2YOujC22Lp0AL6Q5pxx55ICMEKMwkAyb4Z95HRyBUCMb3IZk1Qy6H2fFiGubRmK-pFAeJIr5XhSYQ2eXiCq2jMc2RbZ4BX_O03AgFpZHmNueux0x98yjS9zFlijSXoD6NMSheE1Tc9jDWBQ
+
+    http_version: "1.1"
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: http://www.google.com:80/m8/feeds/contacts/default/full/?max-results=1000
+    body: 
+    headers: 
+      user-agent: 
+      - GoogleDataRubyUtil-AnonymousApp
+      gdata-version: 
+      - "2"
+      content-type: 
+      - application/atom+xml
+      authorization: 
+      - GoogleLogin auth=DQAAAKsAAADkbdCaqEb7sGI_UfyrmbHqt31rPnF1B_2WGFszNhjVT4bnxes3vVPZlxFnMgLdq3NGEhR1RON3lVO5-hHhHVxMiw-X1-s2YOujC22Lp0AL6Q5pxx55ICMEKMwkAyb4Z95HRyBUCMb3IZk1Qy6H2fFiGubRmK-pFAeJIr5XhSYQ2eXiCq2jMc2RbZ4BX_O03AgFpZHmNueux0x98yjS9zFlijSXoD6NMSheE1Tc9jDWBQ
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    body: |-
+      <?xml version='1.0' encoding='UTF-8'?>
+      <feed xmlns='http://www.w3.org/2005/Atom' xmlns:openSearch='http://a9.com/-/spec/opensearch/1.1/' xmlns:gContact='http://schemas.google.com/contact/2008' xmlns:batch='http://schemas.google.com/gdata/batch' xmlns:gd='http://schemas.google.com/g/2005' gd:etag=''>
+        <entry>
+          <title>John Doe</title>
+          <gd:email address="test1@gmail.com" />
+        </entry>
+        <entry>
+          <title>Judy Doe</title>
+          <gd:email address="test2@gmail.com" />
+        </entry>
+      </feed>

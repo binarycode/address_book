@@ -1,0 +1,52 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: http://id.rambler.ru:80/script/auth.cgi
+    body: login=test%40rambler.ru&domain=rambler.ru&passw=
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+    body: errorbox
+    http_version: 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: http://id.rambler.ru:80/script/auth.cgi
+    body: login=test%40rambler.ru&domain=rambler.ru&passw=123123
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+    body: okay
+    http_version: 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :get
+    uri: http://mail.rambler.ru/mail/contacts.cgi
+    body: 
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+    body: |-
+      <div id="mailbox-list">
+        <tbody>
+          <tr>  
+            <div class="mtbox-name">John Doe</div>
+            <div class="mtbox-email">test1@rambler.ru</div>
+          </tr>
+          <tr>  
+            <div class="mtbox-name">Judy Doe</div>
+            <div class="mtbox-email">test2@rambler.ru</div>
+          </tr>
+        </tbody>
+      </div>
+    http_version: 

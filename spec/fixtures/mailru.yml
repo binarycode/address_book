@@ -1,0 +1,44 @@
+--- 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: https://auth.mail.ru:443/cgi-bin/auth
+    body: Login=test%40mail.ru&Domain=mail.ru&Password=
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+    body: fail=1
+    http_version: 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: https://auth.mail.ru:443/cgi-bin/auth
+    body: Login=test%40mail.ru&Domain=mail.ru&Password=123123
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+    body: okay
+    http_version: 
+- !ruby/struct:VCR::HTTPInteraction 
+  request: !ruby/struct:VCR::Request 
+    method: :post
+    uri: http://e.mail.ru:80/cgi-bin/abexport/addressbook.csv
+    body: confirm=1&abtype=6
+    headers: 
+  response: !ruby/struct:VCR::Response 
+    status: !ruby/struct:VCR::ResponseStatus 
+      code: 200
+      message: OK
+    headers: 
+    body: |
+      AB-Name,AB-Name1,AB-Name2,AB-Name3,AB-Email1,AB-Email2,AB-Email3,AB-Phones,AB-WWW,AB-Address,AB-Org,AB-Notes,AB-BY,AB-BM,AB-BD,AB-XTRA
+      John Doe,,,,test1@mail.ru,,,,,,,,,,,
+      Judy Doe,,,,test2@mail.ru,,,,,,,,,,,
+
+    http_version: 
