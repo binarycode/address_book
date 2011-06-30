@@ -1,0 +1,38 @@
+== AddressBook
+
+Exports your contact address books from various email providers.
+
+AddressBook is designed to provide simple and clean interface to various email providers address books. Only Mail.ru, Yandex, Rambler and Gmail are availible currently, but new services can be added easily.
+
+== Installation and Usage
+
+The gem can be installed in the usual way:
+
+  gem install address_book
+
+Or added to your Gemfile if you use Bundler (I hope you do):
+
+  gem "address_book"
+
+To export your address book, simply call AddressBook.export() with email credentials:
+
+  AddressBook.export "test@gmail.com", "password"
+  # => [["name1", "email1@example.com"], ["name2", "email2@test.com"]]
+
+AddressBook will try to determine email provider using domain name from provided email address and return array of names and emails of your contacts. If no provider is registered for given email, it will raise AddressBook::ServiceNotFound exception.
+
+== Background
+
+This gem is heavily inspired and based on the great Contacts[https://github.com/cardmagic/contacts] gem. In fact at first I wanted just to fork it and add needed providers. I gave up this idea, because (imho) gems should perform only one task (but do it well of course) -- export contact lists in our case. It shouldn't bother with handling HTTP connections, sessions, cookies etc. Other gems (Patron[https://github.com/toland/patron] is cool) can do it instead of me.
+
+The gem shouldn't leave the task of specifying provider to user -- it should guess the provider itself. I didn't like how guessing is implemented in Contacts. In fact sending your valuable email credentials to all known providers looks like a serious security breach to me. AddressBook sends credentials to only one guessed provider and raises exception if it cannot guess.
+
+Another thing is testing -- I didn't like the idea that user has to fill in testing accounts information just to see if she didn't break anything in the existing code. What if she made a typo in her password? Test will fail instead of pass and pass instead of fail. The gem should be supplied with prerecorded correct service answers (VCR[https://github.com/myronmarston/vcr] is great for this task).
+
+== Contributing
+
+Pull requests are greatly welcome. Before submitting a pull request, please make sure that your changes are well tested (with latest Ruby 1.8.x and 1.9.x versions if possible).
+
+== License
+
+AddressBook is released under the MIT License.
