@@ -1,12 +1,9 @@
 require "spec_helper"
 
 describe AddressBook do
-  let(:accounts) { YAML.load(File.open("./spec/fixtures/accounts.yml")) }
 
-  %w(yandex mailru rambler gmail).each do |service|
+  YAML.load(File.open("./spec/fixtures/accounts.yml")).each do |service, account|
     context service.capitalize do
-      let(:account) { accounts[service] }
-
       use_vcr_cassette service
 
       context "with invalid credentials" do
@@ -16,9 +13,11 @@ describe AddressBook do
       end
 
       context "with valid credentials" do
+        subject { AddressBook.export account[:login], account[:password] }
+
         it "should fetch address book" do
-          AddressBook.export(account[:login], account[:password]).each do |contact|
-            account[:contacts][contact[1]].should == contact[0]
+          account[:contacts].each do |email, name|
+            should include [name, email]
           end
         end
       end
