@@ -11,10 +11,12 @@ class AddressBook
       client.clientlogin login, password
 
       self.contacts = Nokogiri::XML.parse(client.get(ADDRESS_BOOK_URL).body).css("entry").map do |e|
-        name = (e > "title").first.content
-        email = e.at_xpath("gd:email")[:address]
+        name = (e > "title").first.content rescue nil
+        email = e.at_xpath("gd:email")[:address] rescue nil
         [name, email]
       end
+
+      self.contacts.reject! { |i| i.second.nil? }
     rescue GData::Client::AuthorizationError
       raise AuthenticationError, "Username or password are incorrect"
     end
