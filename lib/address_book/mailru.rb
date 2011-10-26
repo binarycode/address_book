@@ -17,8 +17,10 @@ class AddressBook
       response = session.post ADDRESS_BOOK_URL, { :confirm => 1, :abtype => 6 }
 
       self.contacts = CSV.parse(response.body).drop(1).map do |row|
-        [row[0], row[4]]
+        [row[0], row[4]] rescue nil
       end
+
+      self.contacts.compact!
     end
   end
 end

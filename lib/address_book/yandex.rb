@@ -15,10 +15,16 @@ class AddressBook
       response = session.post ADDRESS_BOOK_URL, { :_handlers => "abook-contacts", :all => "yes" }
 
       self.contacts = Nokogiri::XML.parse(response.body).css("contact").map do |contact|
-        name = contact.at_css "name"
-        email = contact.at_css "email"
-        [name.values.join(" "), email.content]
+        begin
+          name = contact.at_css "name"
+          email = contact.at_css "email"
+          [name.values.join(" "), email.content]
+        rescue
+          nil
+        end
       end
+
+      self.contacts.compact!
     end
   end
 end

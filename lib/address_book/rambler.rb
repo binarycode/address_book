@@ -15,10 +15,16 @@ class AddressBook
       response = session.get ADDRESS_BOOK_URL
 
       self.contacts = Nokogiri::XML.parse(response.body).css("#mailbox-list tbody tr").map do |e|
-        name = e.at_css(".mtbox-name").content.strip
-        email = e.at_css(".mtbox-email").content.strip
-        [name, email]
+        begin
+          name = e.at_css(".mtbox-name").content.strip
+          email = e.at_css(".mtbox-email").content.strip
+          [name, email]
+        rescue
+          nil
+        end
       end
+
+      self.contacts.compact!
     end
   end
 end
